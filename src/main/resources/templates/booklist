@@ -1,0 +1,11 @@
+<table class= "table table-striped">
+    <tr>
+        <th>Name of book</th>
+        <th>Julkaisija</t>
+    </tr>
+    <tr th:each = "book : ${books}">
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+    </tr>
+</table>
+<a href="/add" class="btn btn-primary">Add book</a>
