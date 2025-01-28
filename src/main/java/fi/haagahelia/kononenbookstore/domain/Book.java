@@ -1,6 +1,5 @@
 package fi.haagahelia.kononenbookstore.domain;
 
-import org.hibernate.annotations.IdGeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import jakarta.persistence.Entity;
@@ -12,7 +11,8 @@ import jakarta.persistence.Id;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
+
     private String title, author, isbn;
     private int publicationYear;
     private double price;
@@ -31,6 +31,10 @@ public class Book {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(Long id){
+        this.id = id;
     }
 
     public String getTitle() {

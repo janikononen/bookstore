@@ -18,8 +18,18 @@ public class KononenbookstoreApplication {
 	@Bean
 	public CommandLineRunner addingDemodata(BookRepository repository) {
 		return (args) -> {
-			repository.save(new Book("esimerkkikirja", "jani", "123", 2012, 20.50));
-
+			int publicationYear = 2000;
+			double price = 10.0;
+			for (int i = 1; i <= 20; i++) {
+				repository.save(new Book(
+					"Book Title " + i, // book name
+					"Author " + i,    // author
+					"ISBN" + (1000 + i), // ISBN
+					publicationYear + (i % 25),   // publication year
+					price + (i * 2.5)   // price
+				));
+			}
+			
 		};
 	}
 }
