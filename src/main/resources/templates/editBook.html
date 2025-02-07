@@ -1,23 +1,43 @@
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+<link
+  type="text/css"
+  rel="stylesheet"
+  href="/css/bootstrap.min.css"
+  th:href="@{/css/bootstrap.min.css}"
+/>
 <h1 class="display-4 fw-bold text-center text-primary my-4">Muokkaa kirjaa</h1>
 <div>
-    <form class="p-4 rounded shadow-sm bg-light" th:object="${book}" th:action="@{/update}" method="post">
-        <input type="hidden" th:field="*{id}" />
-        <label for="title">Title</label>
-        <input type="text" id="title" th:field="*{title}" />
+  <form
+    class="p-4 rounded shadow-sm bg-light"
+    th:object="${book}"
+    th:action="@{/update}"
+    method="post"
+  >
+    <input type="hidden" th:field="*{id}" />
 
-        <label for="author">Author</label>
-        <input type="text" id="author" th:field="*{author}" />
+    <label for="title">Title</label>
+    <input type="text" id="title" th:field="*{title}" />
 
-        <label for="isbn">ISBN</label>
-        <input type="text" id="isbn" th:field="*{isbn}" />
+    <label for="author">Author</label>
+    <input type="text" id="author" th:field="*{author}" />
 
-        <label for="publicationYear">Publication Year</label>
-        <input type="number" id="publicationYear" th:field="*{publicationYear}" />
+    <label for="isbn">ISBN</label>
+    <input type="text" id="isbn" th:field="*{isbn}" />
 
-        <label for="price">Price</label>
-        <input type="number" step="0.1" id="price" th:field="*{price}" />
+    <label for="publicationYear">Publication Year</label>
+    <input type="number" id="publicationYear" th:field="*{publicationYear}" />
 
-        <button class="btn btn-success" type="submit">Save Changes</button>
-    </form>
+    <label for="price">Price</label>
+    <input type="number" step="0.1" id="price" th:field="*{price}" />
+
+    <label for="catlist">Category</label>
+    <select id="catlist" th:field="*{category.categoryId}" class="form-control">
+      <option
+        th:each="cat:${categories}"
+        th:value="${cat.categoryId}"
+        th:text="${cat.name}"
+      ></option>
+    </select>
+
+    <button class="btn btn-success" type="submit">Save Changes</button>
+  </form>
 </div>
