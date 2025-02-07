@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 
 import fi.haagahelia.kononenbookstore.domain.Book;
 import fi.haagahelia.kononenbookstore.domain.BookRepository;
+import fi.haagahelia.kononenbookstore.domain.Category;
+import fi.haagahelia.kononenbookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class KononenbookstoreApplication {
@@ -16,20 +18,19 @@ public class KononenbookstoreApplication {
 	}
 
 	@Bean
-	public CommandLineRunner addingDemodata(BookRepository repository) {
+	public CommandLineRunner addingDemodata(BookRepository bRepository, CategoryRepository cRepository) {
 		return (args) -> {
-			int publicationYear = 2000;
-			double price = 10.0;
-			for (int i = 1; i <= 20; i++) {
-				repository.save(new Book(
-					"Book Title " + i, // book name
-					"Author " + i,    // author
-					"ISBN" + (1000 + i), // ISBN
-					publicationYear + (i % 25),   // publication year
-					price + (i * 2.5)   // price
-				));
-			}
-			
+
+			Category it = new Category("IT");
+			Category kauhu = new Category("Kauhu");
+			Category talous = new Category("Talous");
+
+			cRepository.save(it);
+			cRepository.save(kauhu);
+			cRepository.save(talous);
+
+			bRepository.save(new Book("test", "test", "test", 2012, 20.5, it));
+
 		};
-	}
+	};
 }

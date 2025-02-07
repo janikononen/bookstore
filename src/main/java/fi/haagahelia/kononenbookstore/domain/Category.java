@@ -2,6 +2,8 @@ package fi.haagahelia.kononenbookstore.domain;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,22 +15,26 @@ import jakarta.persistence.OneToMany;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Categoryid;
+    private Long categoryId;
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Book> books;
 
+    @Autowired
     public Category(String name) {
         this.name = name;
     }
 
-    public Long getCategoryid() {
-        return Categoryid;
+    public Category() {
     }
 
-    public void setCategoryid(Long categoryid) {
-        Categoryid = categoryid;
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryid) {
+        categoryId = categoryid;
     }
 
     public String getName() {
