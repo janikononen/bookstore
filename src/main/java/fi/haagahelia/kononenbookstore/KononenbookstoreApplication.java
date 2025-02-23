@@ -30,6 +30,8 @@ public class KononenbookstoreApplication {
 			cRepository.save(talous);
 
 			bRepository.save(new Book("test", "test", "test", 2012, 20.5, it));
+			bRepository.save(new Book("test2", "test2", "test2", 2013, 25.5, kauhu));
+			bRepository.save(new Book("test3", "test3", "test3", 2014, 30.5, talous));
 
 		};
 	};

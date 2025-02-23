@@ -1,5 +1,8 @@
 package fi.haagahelia.kononenbookstore.web;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +15,8 @@ import fi.haagahelia.kononenbookstore.domain.CategoryRepository;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BookController {
@@ -28,6 +33,18 @@ public class BookController {
     public String listOfBooks(Model model) {
         model.addAttribute("books", bRepository.findAll());
         return "booklist";
+    }
+
+    @GetMapping("/books")
+    @ResponseBody
+    public List<Book> books() {
+        return (List<Book>) bRepository.findAll();
+    }
+
+    @GetMapping("/book/{id}")
+    @ResponseBody
+    public Optional<Book> getBookById(@PathVariable("id") Long id) {
+        return bRepository.findById(id);
     }
 
     // add new book
