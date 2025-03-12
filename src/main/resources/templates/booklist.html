@@ -1,32 +1,57 @@
-<link
-  type="text/css"
-  rel="stylesheet"
-  href="/css/bootstrap.min.css"
-  th:href="@{/css/bootstrap.min.css}"
-/>
-<h1 class="display-4 fw-bold text-center text-primary my-4">Booklist</h1>
-<td><a href="/add" class="btn btn-success">Add book</a></td>
-<table class="table table-striped">
-  <tr>
-    <th>Author</th>
-    <th>Title</th>
-    <th>ISBN</th>
-    <th>Year</th>
-    <th>Category</th>
-  </tr>
-  <tr th:each="book : ${books}">
-    <td th:text="${book.author}"></td>
-    <td th:text="${book.title}"></td>
-    <td th:text="${book.isbn}"></td>
-    <td th:text="${book.publicationYear}"></td>
-    <td th:text="${book.category.name}"></td>
-    <td>
-      <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
-    </td>
-    <td>
-      <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger"
-        >Delete</a
-      >
-    </td>
-  </tr>
-</table>
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+  <head>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/css/bootstrap.min.css"
+      th:href="@{/css/bootstrap.min.css}"
+    />
+  </head>
+  <body>
+    <h1>Hello <span sec:authentication="name"></span>!</h1>
+    <h1 class="display-4 fw-bold text-center text-primary my-4">Booklist</h1>
+    <div>
+      <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" />
+      </form>
+    </div>
+    <div>
+      <a href="/add" class="btn btn-success">Add book</a>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Author</th>
+          <th>Title</th>
+          <th>ISBN</th>
+          <th>Year</th>
+          <th>Category</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="book : ${books}">
+          <td th:text="${book.author}"></td>
+          <td th:text="${book.title}"></td>
+          <td th:text="${book.isbn}"></td>
+          <td th:text="${book.publicationYear}"></td>
+          <td th:text="${book.category.name}"></td>
+          <td>
+            <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary"
+              >Edit</a
+            >
+          </td>
+          <td sec:authorize="hasAuthority('ADMIN')">
+            <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger"
+              >Delete</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

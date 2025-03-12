@@ -3,7 +3,7 @@ package fi.haagahelia.kononenbookstore.web;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,7 +16,7 @@ import fi.haagahelia.kononenbookstore.domain.CategoryRepository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class BookController {
@@ -33,6 +33,11 @@ public class BookController {
     public String listOfBooks(Model model) {
         model.addAttribute("books", bRepository.findAll());
         return "booklist";
+    }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
     }
 
     @GetMapping("/books")
@@ -62,6 +67,7 @@ public class BookController {
         return "redirect:/booklist";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long bookId) {
         bRepository.deleteById(bookId);
